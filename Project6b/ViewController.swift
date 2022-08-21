@@ -15,6 +15,20 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        
+       calculateConstraints()
+
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        calculateConstraints()
+    }
+    
+    func calculateConstraints()
+    {
         let label1 = UILabel()
         label1.translatesAutoresizingMaskIntoConstraints = false
         label1.backgroundColor = UIColor.red
@@ -51,7 +65,6 @@ class ViewController: UIViewController {
         view.addSubview(label4)
         view.addSubview(label5)
         
-        
         //////////////TECHNIQUE 1//////////////////
         
 //        let viewsDictionary = ["label1": label1, "label2": label2, "label3": label3, "label4": label4, "label5": label5]
@@ -76,15 +89,16 @@ class ViewController: UIViewController {
         //Technique 2 is more widely used as its more efficient.
         ///////////////////TECNIQUE 2/////////////////////////
         var previous: UILabel?
-
-        for label in [label1, label2, label3, label4, label5] {
-            label.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        let labels = [label1, label2, label3, label4, label5]
+        for label in  labels {
+//            label.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
             ///////my extra code added///////////////
             label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+            label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 20).isActive = true
             ///////my extra code added///////////////
             
-            label.heightAnchor.constraint(equalToConstant: 88).isActive = true
-
+            label.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.2, constant: -10).isActive = true
+            
             if let previous = previous {
                 // we have a previous label – create a height constraint
                 label.topAnchor.constraint(equalTo: previous.bottomAnchor, constant: 10).isActive = true
@@ -94,6 +108,10 @@ class ViewController: UIViewController {
             }
             // set the previous label to be the current one, for the next loop iteration
             previous = label
+            if let label = labels.last {
+                //setting up bottom 20 space
+                label.bottomAnchor.constraint(lessThanOrEqualToSystemSpacingBelow: view.safeAreaLayoutGuide.bottomAnchor, multiplier: 0.1 ).isActive = true
+            }
         }
         ///////////////////TECNIQUE 2/////////////////////////
 
@@ -102,9 +120,7 @@ class ViewController: UIViewController {
         //right anchor
         
         //completing challenges on end of Day
-
     }
-
 
 }
 
