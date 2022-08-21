@@ -100,6 +100,8 @@ class ViewController: UIViewController {
         //width anchor , height anchor, top anchor, bottom anchor
         //leading anchor, trailing anchor , centre edge anchor, left anchot
         //right anchor
+        
+        //completing challenges on end of Day
 
     }
 
